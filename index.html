@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chicken Clicker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hud">
+    <div class="stat"><strong>Money:</strong> <span id="money">0</span></div>
+    <div class="stat"><strong>Per Click:</strong> <span id="perClick">1</span></div>
+    <button id="saveBtn" class="ghost">Save</button>
+    <button id="resetBtn" class="ghost">Reset</button>
+  </header>
+
+  <main class="stage">
+    <button id="chickenBtn" class="chicken" aria-label="Peck chicken to earn money">
+      <!-- Placeholder for chicken sprite. Replace with your own image (512x512) in the assets folder -->
+      <img src="assets/chicken.png" alt="Chicken" />
+    </button>
+    <audio id="clickSfx" src="assets/click.mp3" preload="auto"></audio>
+  </main>
+
+  <aside class="panel" aria-label="Upgrades">
+    <h2>Upgrades</h2>
+    <div class="upgrade">
+      <div>
+        <div class="u-title">Stronger Peck</div>
+        <div class="u-desc">+1 money per click (stacks)</div>
+      </div>
+      <div class="u-actions">
+        <div class="u-cost">Cost: <span id="spCost">10</span></div>
+        <button id="buyStrongerPeck" disabled>Buy</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="game.js"></script>
+</body>
+</html>
