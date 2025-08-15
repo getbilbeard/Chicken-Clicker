@@ -10,6 +10,9 @@
   <header class="hud">
     <div class="stat"><strong>Money:</strong> <span id="money">0</span></div>
     <div class="stat"><strong>Per Click:</strong> <span id="perClick">1</span></div>
+    <!-- Show eggs and chicks counts -->
+    <div class="stat"><strong>Eggs:</strong> <span id="eggs">0</span></div>
+    <div class="stat"><strong>Chicks:</strong> <span id="chicks">0</span></div>
     <button id="saveBtn" class="ghost">Save</button>
     <button id="resetBtn" class="ghost">Reset</button>
   </header>
@@ -32,6 +35,19 @@
       <div class="u-actions">
         <div class="u-cost">Cost: <span id="spCost">10</span></div>
         <button id="buyStrongerPeck" disabled>Buy</button>
+      </div>
+    </div>
+
+    <h2>Units</h2>
+    <!-- Chick purchase panel -->
+    <div class="upgrade">
+      <div>
+        <div class="u-title">Chick</div>
+        <div class="u-desc">Matures into a Chicken</div>
+      </div>
+      <div class="u-actions">
+        <div class="u-cost">Cost: <span id="chickCost">25</span> eggs</div>
+        <button id="buyChick" disabled>Buy</button>
       </div>
     </div>
   </aside>

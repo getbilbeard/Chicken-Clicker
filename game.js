@@ -1,9 +1,13 @@
 /* Core state */
 const defaultState = {
   money: 0,
+  eggs: 0,
+  chicks: 0,
   perClick: 1,
   upgrades: { strongerPeck: 0 },
-  prices: { strongerPeck: 10 }
+  prices: { strongerPeck: 10 },
+  // cost to buy a single chick in eggs
+  chickCost: 25
 };
 let s = load() || structuredClone(defaultState);
 
@@ -16,6 +20,10 @@ const spCostEl = document.getElementById('spCost');
 const saveBtn = document.getElementById('saveBtn');
 const resetBtn = document.getElementById('resetBtn');
 const clickSfx = document.getElementById('clickSfx');
+const eggsEl = document.getElementById('eggs');
+const chicksEl = document.getElementById('chicks');
+const chickCostEl = document.getElementById('chickCost');
+const buyChickBtn = document.getElementById('buyChick');
 
 /* Helpers */
 function render() {
@@ -23,6 +31,13 @@ function render() {
   perClickEl.textContent = s.perClick;
   spCostEl.textContent = s.prices.strongerPeck;
   buySP.disabled = s.money < s.prices.strongerPeck;
+
+  // update eggs and chicks displays
+  eggsEl.textContent = s.eggs?.toLocaleString() || 0;
+  chicksEl.textContent = s.chicks?.toLocaleString() || 0;
+  chickCostEl.textContent = s.chickCost;
+  // enable chick buy if enough eggs
+  buyChickBtn.disabled = (s.eggs || 0) < (s.chickCost || defaultState.chickCost);
 }
 function addMoney(n) { s.money += n; render(); }
 function save() { localStorage.setItem('chickenClicker', JSON.stringify(s)); }
@@ -43,6 +58,16 @@ function buyUpgrade(key) {
   render(); save();
 }
 
+// buy a chick using eggs
+function buyChick() {
+  const cost = s.chickCost || defaultState.chickCost;
+  if ((s.eggs || 0) < cost) return;
+  s.eggs -= cost;
+  s.chicks = (s.chicks || 0) + 1;
+  render();
+  save();
+}
+
 /* Events */
 chickenBtn.addEventListener('click', () => {
   addMoney(s.perClick);
@@ -54,6 +79,7 @@ chickenBtn.addEventListener('keydown', (e) => {
   if (e.code === 'Enter' || e.code === 'Space') { e.preventDefault(); chickenBtn.click(); }
 });
 buySP.addEventListener('click', () => buyUpgrade('strongerPeck'));
+buyChickBtn.addEventListener('click', buyChick);
 saveBtn.addEventListener('click', save);
 resetBtn.addEventListener('click', () => {
   if (!confirm('Reset progress?')) return;
